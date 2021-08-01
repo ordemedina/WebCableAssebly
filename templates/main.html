@@ -18,9 +18,9 @@
     <b>Please enter the assembly details down belows: </b><br><br>
 
 
-    #{% for cable in cables %}
-     #   <h1>{{cable.family}} = {{cable.frequency}}</h1>
-    #{% endfor %}
+<!--    #{% for cable in cables %}-->
+<!--     #   <h1>{{cable.family}} = {{cable.frequency}}</h1>-->
+<!--    #{% endfor %}-->
     <form id="user_select">
         <label for="length">Length: </label>
         <input type="text" id="length" name="length" required  maxlength="8" size="10">
@@ -47,7 +47,7 @@
         </select>
 
 
-        <button id="submitbtn" type="submit" value="Submit">Submit</button>
+        <button id="submitbtn" type="submit" value="Submit" onclick="updateRightTable()">Submit</button>
 
     </form>
 
@@ -64,9 +64,9 @@
         <option value="N19">N19</option>
     </select>
 
-    <button type="submit" value="Submit">Submit</button>
+    <button type="submit" value="Submit" onclick="updateRightTable()">Submit</button>
     <!-- This table will be generated via SQL query -->
-    <table style="width:100%">
+    <table id="right_table" style="width:100%">
         <tr>
             <th>Serie</th>
             <th>Model</th>
@@ -89,6 +89,38 @@
 
 
     <script>
+
+          function updateRightTable() {
+          let url = "http://localhost:1234/filter?"
+          url += "length=" + document.getElementById('length').value
+          url += "&frequency=" + document.getElementById('frequency').value
+          url += "&diameter=" + document.getElementById('diameter').value
+          url += "&application=" + document.getElementById('application').value
+
+          fetch(url)
+              .then(response => response.json())
+              .then(data => {
+
+                for (let row of data)
+                {
+                    // Get a reference to the table
+                  let tableRef = document.getElementById('right_table');
+
+                  // Insert a row at the end of the table
+                  let newRow = tableRef.insertRow(-1);
+
+                  // Insert a cell in the row at index 0
+                  let newCell = newRow.insertCell(0);
+
+                  // Append a text node to the cell
+                  let lenText = document.createTextNode(row.length);
+                  newCell.appendChild(lenText);
+                  let freqText = document.createTextNode(row.frequency);
+                  newCell.appendChild(freqText);
+              }
+              });
+      }
+
       //  let assemblies =[];
 
        // function addAssembly (){
@@ -113,21 +145,21 @@
         //to make sure the web uploaded
         //document.addEventListener('DOMContentLoaded',()=>{
         //document.getElementById('submitbtn').addEventListener('click',addAssembly);
-        //});
+        //})
 
-    $('#submitbtn').click(function(e){
-    e.preventDefault();
-           let assembly={
-           id: 123,
-          length:document.getElementById('length').value,
-          frequency:document.getElementById('frequency').value,
-           diameter:document.getElementById('diameter').value,
-           application:document.getElementById('application').value
-           }
-           localStorage.setItem("assembly",JSON.stringify(assembly));
-
-
-    });
+    // $('#submitbtn').click(function(e){
+    // e.preventDefault();
+    //        let assembly={
+    //        id: 123,
+    //       length:document.getElementById('length').value,
+    //       frequency:document.getElementById('frequency').value,
+    //        diameter:document.getElementById('diameter').value,
+    //        application:document.getElementById('application').value
+    //        }
+    //        localStorage.setItem("assembly",JSON.stringify(assembly));
+    //
+    //
+    // });
 
     </script>
 
