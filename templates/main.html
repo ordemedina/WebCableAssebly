@@ -89,24 +89,24 @@
 
 
     <script>
-        let assemblies =[];
+      //  let assemblies =[];
 
-        function addAssembly (){
-            ev.preventDefault();  //dont reload the web
-            let assembly={
-            id: 123,
-            length:document.getElementById('length').value,
-            frequency:document.getElementById('frequency').value,
-            diameter:document.getElementById('diameter').value,
-            application:document.getElementById('application').value
-            }
-            assemblies.push(assembly);
-            document.from[0].reset();
-            console.warn('added', {assemblies});
-            let pre =document.querySelector('#msg pre');
-            pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
-            console.log("ok")
-        }
+       // function addAssembly (){
+         //   ev.preventDefault();  //dont reload the web
+          //  let assembly={
+          //  id: 123,
+         //   length:document.getElementById('length').value,
+          //  frequency:document.getElementById('frequency').value,
+         //   diameter:document.getElementById('diameter').value,
+           // application:document.getElementById('application').value
+          //  }
+          //  assemblies.push(assembly);
+         //   document.from[0].reset();
+          //  console.warn('added', {assemblies});
+         //   let pre =document.querySelector('#msg pre');
+         //   pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
+         //   console.log("ok")
+       // }
 
         //saving to localStorage
 
@@ -115,11 +115,18 @@
         //document.getElementById('submitbtn').addEventListener('click',addAssembly);
         //});
 
+    $('#submitbtn').click(function(e){
+    e.preventDefault();
+           let assembly={
+           id: 123,
+          length:document.getElementById('length').value,
+          frequency:document.getElementById('frequency').value,
+           diameter:document.getElementById('diameter').value,
+           application:document.getElementById('application').value
+           }
+           localStorage.setItem("assembly",JSON.stringify(assembly));
 
 
-    $("#user_select").submit(addAssembly);
-    {
-        alert("bottun clicked")
     });
 
     </script>
