@@ -10,6 +10,7 @@ db=SQLAlchemy(app)
 class Cable (db.Model):
     __tablename__ = 'cables'
     product_number=db.Column(db.Integer, primary_key=True)
+    family = db.Column(db.Integer, unique=True, nullable=False)
     frequency = db.Column(db.Integer, unique=True,nullable=False)
 
     def __repr__(self):
