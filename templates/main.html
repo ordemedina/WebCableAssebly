@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Avdor</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
+
+
 <style>
     table, th, td {
         border: 1px solid black;
@@ -11,112 +15,115 @@
 </style>
 
 <body>
-
-<b>Please enter the assembly details down belows: </b><br><br>
-
-{% for cable in cables %}
-    <h1>{{cable.family}} = {{cable.frequency}}</h1>
-{% endfor %}
-<form>
-<label for="length">Length: </label>
-<input type="text" id="length" name="length" required minlength="4" maxlength="8" size="10">
+    <b>Please enter the assembly details down belows: </b><br><br>
 
 
-<select name="length_type" id="length_type">
-    <option value="mm">mm</option>
-    <option value="m">m</option>
-</select>
-
-<label for="frequency"> Frequency:</label>
-<input type="text" id="frequency" name="frequency" required minlength="4" maxlength="8" size="10">
-
-<label for="diameter"> Diameter:</label>
-<input type="text" id="diameter" name="diameter" required minlength="4" maxlength="8" size="10">
+    #{% for cable in cables %}
+     #   <h1>{{cable.family}} = {{cable.frequency}}</h1>
+    #{% endfor %}
+    <form id="user_select">
+        <label for="length">Length: </label>
+        <input type="text" id="length" name="length" required  maxlength="8" size="10">
 
 
-<label for="application"> Application:</label>
-<select name="application" id="application">
-    <option value="Civil Aircraft">Civil Aircraft</option>
-    <option value="Defense">Defense</option>
-    <option value="Mil Airborn">Mil Airborn</option>
-</select>
-
-<button type="submit" value="Submit">Submit</button>
+        <select name="length_type" id="length_type">
+            <option value="mm">mm</option>
+            <option value="m">m</option>
+        </select>
 
 
+        <label for="frequency"> Frequency:</label>
+        <input type="text" id="frequency" name="frequency" required  maxlength="8" size="10">
 
+        <label for="diameter"> Diameter:</label>
+        <input type="text" id="diameter" name="diameter" required  maxlength="8" size="10">
+
+
+        <label for="application"> Application:</label>
+        <select name="application" id="application">
+            <option value="Civil Aircraft">Civil Aircraft</option>
+            <option value="Defense">Defense</option>
+            <option value="Mil Airborn">Mil Airborn</option>
+        </select>
+
+
+        <button id="submitbtn" type="submit" value="Submit">Submit</button>
 
     </form>
-<br><br>
-<b>----------------------------------------------------------------</b>
-<br><br>
-
-<!-- This dropdown will be generated via SQL query -->
-<label for="serie">Serie:</label>
-<select name="serie" id="serie">
-    <option value="N18">N18</option>
-    <option value="N19">N19</option>
-</select>
-<button id="submitbtn" type="submit" value="Submit">Submit</button>
-
-<!-- This table will be generated via SQL query -->
-<table style="width:100%">
-    <tr>
-        <th>Serie</th>
-        <th>Model</th>
-        <th>Part Number</th>
-        <th>Material</th>
-    </tr>
-    <tr>
-        <td>Jill</td>
-        <td>Smith</td>
-        <td>50</td>
-        <td>50</td>
-    </tr>
-    <tr>
-        <td>Eve</td>
-        <td>Jackson</td>
-        <td>94</td>
-        <td>94</td>
-    </tr>
-</table>
 
 
-<script>
-    let assemblies =[];
+    <br><br>
+    <b>----------------------------------------------------------------</b>
+    <br><br>
+
+    <!-- This dropdown will be generated via SQL query -->
+
+    <label for="serie">Serie:</label>
+    <select name="serie" id="serie">
+        <option value="N18">N18</option>
+        <option value="N19">N19</option>
+    </select>
+
+    <button type="submit" value="Submit">Submit</button>
+    <!-- This table will be generated via SQL query -->
+    <table style="width:100%">
+        <tr>
+            <th>Serie</th>
+            <th>Model</th>
+            <th>Part Number</th>
+            <th>Material</th>
+        </tr>
+        <tr>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Eve</td>
+            <td>Jackson</td>
+            <td>94</td>
+            <td>94</td>
+        </tr>
+    </table>
 
 
-    const addAssembly=(ev)=>{
-    ev.preventDefault();  //dont reload the web
-    let assembly="
-    id: 123,
-    length:document.getElementById('length').value,
-    frequency:document.getElementById('frequency').value,
-    diameter:document.getElementById('diameter').value,
-    application:document.getElementById('application').value
+    <script>
+        let assemblies =[];
 
-    }
-    assemblies.push(movies);
-    document.from[0].reset();
-    console.warn.('added, {assemblies});
-    let pre =document.querySelector('#msg pre');
-    pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
+        function addAssembly (){
+            ev.preventDefault();  //dont reload the web
+            let assembly={
+            id: 123,
+            length:document.getElementById('length').value,
+            frequency:document.getElementById('frequency').value,
+            diameter:document.getElementById('diameter').value,
+            application:document.getElementById('application').value
+            }
+            assemblies.push(assembly);
+            document.from[0].reset();
+            console.warn('added', {assemblies});
+            let pre =document.querySelector('#msg pre');
+            pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
+            console.log("ok")
+        }
 
-       //saving to localStorage
+        //saving to localStorage
 
-
-
-
-
-
-
-    //to make sure the web uploaded
-    document.addEventListener('DOMContentLoaded',()=>{
-    document.getElementById('submitbtn').addEventListener('click',addAssembly);
-    }
+        //to make sure the web uploaded
+        //document.addEventListener('DOMContentLoaded',()=>{
+        //document.getElementById('submitbtn').addEventListener('click',addAssembly);
+        //});
 
 
-</script>
+
+
+    $("#user_select").submit(addAssembly);
+    {
+        alert("bottun clicked")
+    });
+
+    </script>
 
 </body>
 </html>
