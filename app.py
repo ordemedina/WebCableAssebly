@@ -1,7 +1,9 @@
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+from sqlalchemy import text
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:om2694oM@localhost/postgres"
@@ -13,6 +15,7 @@ class Cable(db.Model):
     product_number = db.Column(db.Integer, primary_key=True)
     family = db.Column(db.Integer, unique=True, nullable=False)
     frequency = db.Column(db.Integer, unique=True, nullable=False)
+    diameter = db.Column(db.Integer, unique=True, nullable=False)
 
     def __repr__(self):
         return "details:(" + str(self.product_number) + "," + str(self.frequency) + ")"
@@ -28,11 +31,14 @@ def home():
 def filer():
     length = request.args.get('length')
     frequency = request.args.get('frequency')
+    diameter = request.args.get('diameter')
     # cables = Cable.query.all()
-    # cables = Cable.query.filter_by(length=length).first()
+    cables = Cable.query.filter_by(Cable.frequency > frequency, Cable.diameter == diameter).first()
 
-    result = db.engine.execute(text("SELECT * FROM cables;").execution_options(autocommit=True))
-    return result;
+    # result = db.engine.execute(text("SELECT * FROM cables;").execution_options(autocommit=True))
+    # result = Cable.query.filter_by(length=length).first()
+    # return str(result);
+    return str(cables);
     # return json.loads(to_json(result, Cable))
 
 
