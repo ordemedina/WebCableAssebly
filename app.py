@@ -33,14 +33,14 @@ def filer():
     length = request.args.get('length')
     frequency = request.args.get('frequency')
     diameter = request.args.get('diameter')
-    # cables = Cable.query.all()
-    cables = Cable.query.filter_by(Cable.frequency > frequency, Cable.diameter == diameter).first()
+    cables = Cable.query.all()
+    # cables = Cable.query.filter_by(Cable.frequency > frequency, Cable.diameter == diameter).first()
 
     # result = db.engine.execute(text("SELECT * FROM cables;").execution_options(autocommit=True))
     # result = Cable.query.filter_by(length=length).first()
     # return str(result);
     return str(cables);
-    # return json.loads(to_json(result, Cable))
+    # return json.loads(to_json(cables, Cable))
 
 
 def to_json(inst, cls):
