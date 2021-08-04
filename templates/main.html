@@ -16,10 +16,9 @@
 <body>
 <b>Please enter the assembly details down belows: </b><br><br>
 
+<td id="error"/>
 
-<!--    #{% for cable in cables %}-->
-<!--     #   <h1>{{cable.family}} = {{cable.frequency}}</h1>-->
-<!--    #{% endfor %}-->
+
 <form id="user_select">
     <label for="length">Length: </label>
     <input type="text" id="length" name="length" required maxlength="8" size="10">
@@ -90,32 +89,40 @@
 
 <script>
     function updateRightTable() {
-        let url = "http://localhost:1234/filter?"
+        // TODO: update port
+        // TODO: validate the params before sending request to server, else print error
+        let url = "http://localhost:1234/filter-cable?"
+        if (!document.getElementById('length').value) {
+            document.getElementById('error').innerHTML = "<b>Invalid length inserted</b>";
+            return;
+        }
         url += "length=" + document.getElementById('length').value
         url += "&frequency=" + document.getElementById('frequency').value
         url += "&diameter=" + document.getElementById('diameter').value
         url += "&application=" + document.getElementById('application').value
 
-        fetch(url)
-            .then(response => {
-                console.log(response);
-            });
-
+        document.getElementById('error').innerHTML = "";
         // fetch(url)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         let HTML = "<table id='right_table' border=1 width=100%><tr><th>Serie</th><th>Model</th><th>Part Number</th><th>Material</th>";
-        //         for (let row of data) {
-        //             HTML += "<tr>"
-        //             HTML += "<th>" + row.length + "</th>"
-        //             HTML += "<th>" + row.frequency + "</th>"
-        //             HTML += "<th>" + row.length + "</th>"
-        //             HTML += "<th>" + row.length + "</th>"
-        //             HTML += "</tr>"
-        //         }
-        //         HTML += "</table>";
-        //         document.getElementById('right_table').innerHTML = HTML;
+        //     .then(response => {
+        //         console.log(response);
         //     });
+
+        //TODO: verify that response.json() works also for json array
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let HTML = "<table id='right_table' border=1 width=100%><tr><th>Serie</th><th>Model</th><th>Part Number</th><th>Material</th>";
+                for (let row of data) {
+                    HTML += "<tr>"
+                    HTML += "<th>" + row.length + "</th>"
+                    HTML += "<th>" + row.frequency + "</th>"
+                    HTML += "<th>" + row.var + "</th>"
+                    HTML += "<th>" + row.var + "</th>"
+                    HTML += "</tr>"
+                }
+                HTML += "</table>";
+                document.getElementById('right_table').innerHTML = HTML;
+            });
     }
 </script>
 
