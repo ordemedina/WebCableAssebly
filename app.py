@@ -24,7 +24,7 @@ def home():
 
 
 @app.route("/filter")
-def home():
+def filer():
     length = request.args.get('length')
     frequency = request.args.get('frequency')
     # cables = Cable.query.all()

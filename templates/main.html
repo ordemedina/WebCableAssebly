@@ -7,7 +7,6 @@
 </head>
 
 
-
 <style>
     table, th, td {
         border: 1px solid black;
@@ -15,137 +14,128 @@
 </style>
 
 <body>
-    <b>Please enter the assembly details down belows: </b><br><br>
+<b>Please enter the assembly details down belows: </b><br><br>
 
 
 <!--    #{% for cable in cables %}-->
 <!--     #   <h1>{{cable.family}} = {{cable.frequency}}</h1>-->
 <!--    #{% endfor %}-->
-    <form id="user_select">
-        <label for="length">Length: </label>
-        <input type="text" id="length" name="length" required  maxlength="8" size="10">
+<form id="user_select">
+    <label for="length">Length: </label>
+    <input type="text" id="length" name="length" required maxlength="8" size="10">
 
 
-        <select name="length_type" id="length_type">
-            <option value="mm">mm</option>
-            <option value="m">m</option>
-        </select>
-
-
-        <label for="frequency"> Frequency:</label>
-        <input type="text" id="frequency" name="frequency" required  maxlength="8" size="10">
-
-        <label for="diameter"> Diameter:</label>
-        <input type="text" id="diameter" name="diameter" required  maxlength="8" size="10">
-
-
-        <label for="application"> Application:</label>
-        <select name="application" id="application">
-            <option value="Civil Aircraft">Civil Aircraft</option>
-            <option value="Defense">Defense</option>
-            <option value="Mil Airborn">Mil Airborn</option>
-        </select>
-
-
-        <button id="submitbtn" type="submit" value="Submit" onclick="updateRightTable()">Submit</button>
-
-    </form>
-
-
-    <br><br>
-    <b>----------------------------------------------------------------</b>
-    <br><br>
-
-    <!-- This dropdown will be generated via SQL query -->
-
-    <label for="serie">Serie:</label>
-    <select name="serie" id="serie">
-        <option value="N18">N18</option>
-        <option value="N19">N19</option>
+    <select name="length_type" id="length_type">
+        <option value="mm">mm</option>
+        <option value="m">m</option>
     </select>
 
-    <button type="submit" value="Submit" onclick="updateRightTable()">Submit</button>
-    <!-- This table will be generated via SQL query -->
-    <table id="right_table" style="width:100%">
-        <tr>
-            <th>Serie</th>
-            <th>Model</th>
-            <th>Part Number</th>
-            <th>Material</th>
-        </tr>
-        <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-            <td>94</td>
-        </tr>
-    </table>
+
+    <label for="frequency"> Frequency:</label>
+    <input type="text" id="frequency" name="frequency" required maxlength="8" size="10">
+
+    <label for="diameter"> Diameter:</label>
+    <input type="text" id="diameter" name="diameter" required maxlength="8" size="10">
 
 
-    <script>
+    <label for="application"> Application:</label>
+    <select name="application" id="application">
+        <option value="Civil Aircraft">Civil Aircraft</option>
+        <option value="Defense">Defense</option>
+        <option value="Mil Airborn">Mil Airborn</option>
+    </select>
 
-          function updateRightTable() {
-          let url = "http://localhost:1234/filter?"
-          url += "length=" + document.getElementById('length').value
-          url += "&frequency=" + document.getElementById('frequency').value
-          url += "&diameter=" + document.getElementById('diameter').value
-          url += "&application=" + document.getElementById('application').value
 
-          fetch(url)
-              .then(response => response.json())
-              .then(data => {
+    <button id="submitbtn" type="submit" value="Submit" onclick="updateRightTable()">Submit</button>
 
-                for (let row of data)
-                {
-                    // Get a reference to the table
-                  let tableRef = document.getElementById('right_table');
+</form>
 
-                  // Insert a row at the end of the table
-                  let newRow = tableRef.insertRow(-1);
 
-                  // Insert a cell in the row at index 0
-                  let newCell = newRow.insertCell(0);
+<br><br>
+<b>----------------------------------------------------------------</b>
+<br><br>
 
-                  // Append a text node to the cell
-                  let lenText = document.createTextNode(row.length);
-                  newCell.appendChild(lenText);
-                  let freqText = document.createTextNode(row.frequency);
-                  newCell.appendChild(freqText);
-              }
-              });
-      }
+<!-- This dropdown will be generated via SQL query -->
 
-      //  let assemblies =[];
+<label for="serie">Serie:</label>
+<select name="serie" id="serie">
+    <option value="N18">N18</option>
+    <option value="N19">N19</option>
+</select>
 
-       // function addAssembly (){
-         //   ev.preventDefault();  //dont reload the web
-          //  let assembly={
-          //  id: 123,
-         //   length:document.getElementById('length').value,
-          //  frequency:document.getElementById('frequency').value,
-         //   diameter:document.getElementById('diameter').value,
-           // application:document.getElementById('application').value
-          //  }
-          //  assemblies.push(assembly);
-         //   document.from[0].reset();
-          //  console.warn('added', {assemblies});
-         //   let pre =document.querySelector('#msg pre');
-         //   pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
-         //   console.log("ok")
-       // }
+<button type="submit" value="Submit" onclick="updateRightTable()">Submit</button>
+<!-- This table will be generated via SQL query -->
+<table id="right_table" style="width:100%">
+    <tr>
+        <th>Serie</th>
+        <th>Model</th>
+        <th>Part Number</th>
+        <th>Material</th>
+    </tr>
+    <tr>
+        <td>Jill</td>
+        <td>Smith</td>
+        <td>50</td>
+        <td>50</td>
+    </tr>
+    <tr>
+        <td>Eve</td>
+        <td>Jackson</td>
+        <td>94</td>
+        <td>94</td>
+    </tr>
+</table>
 
-        //saving to localStorage
+<script>
+    function updateRightTable() {
+        let url = "http://localhost:1234/filter?"
+        url += "length=" + document.getElementById('length').value
+        url += "&frequency=" + document.getElementById('frequency').value
+        url += "&diameter=" + document.getElementById('diameter').value
+        url += "&application=" + document.getElementById('application').value
 
-        //to make sure the web uploaded
-        //document.addEventListener('DOMContentLoaded',()=>{
-        //document.getElementById('submitbtn').addEventListener('click',addAssembly);
-        //})
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let HTML = "<table id='right_table' border=1 width=100%><tr><th>Serie</th><th>Model</th><th>Part Number</th><th>Material</th>";
+                for (let row of data) {
+                    HTML += "<tr>"
+                    HTML += "<th>" + row.length + "</th>"
+                    HTML += "<th>" + row.frequency + "</th>"
+                    HTML += "<th>" + row.length + "</th>"
+                    HTML += "<th>" + row.length + "</th>"
+                    HTML += "</tr>"
+                }
+                HTML += "</table>";
+                document.getElementById('right_table').innerHTML = HTML;
+            });
+    }
+
+    //  let assemblies =[];
+
+    // function addAssembly (){
+    //   ev.preventDefault();  //dont reload the web
+    //  let assembly={
+    //  id: 123,
+    //   length:document.getElementById('length').value,
+    //  frequency:document.getElementById('frequency').value,
+    //   diameter:document.getElementById('diameter').value,
+    // application:document.getElementById('application').value
+    //  }
+    //  assemblies.push(assembly);
+    //   document.from[0].reset();
+    //  console.warn('added', {assemblies});
+    //   let pre =document.querySelector('#msg pre');
+    //   pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
+    //   console.log("ok")
+    // }
+
+    //saving to localStorage
+
+    //to make sure the web uploaded
+    //document.addEventListener('DOMContentLoaded',()=>{
+    //document.getElementById('submitbtn').addEventListener('click',addAssembly);
+    //})
 
     // $('#submitbtn').click(function(e){
     // e.preventDefault();
@@ -161,7 +151,7 @@
     //
     // });
 
-    </script>
+</script>
 
 </body>
 </html>
