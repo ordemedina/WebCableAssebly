@@ -18,7 +18,8 @@ class Cable(db.Model):
     diameter = db.Column(db.Integer, unique=True, nullable=False)
 
     def __repr__(self):
-        return "details:(" + str(self.product_number) + "," + str(self.frequency) + ")"
+        return "{\"product_number\":" + str(self.product_number) +\
+               ",\"frequency\":" + str(self.frequency) + "}"
 
 
 @app.route("/")
