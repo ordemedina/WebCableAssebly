@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -28,8 +29,11 @@ def filer():
     length = request.args.get('length')
     frequency = request.args.get('frequency')
     # cables = Cable.query.all()
-    cables = Cable.query.filter_by(length=length).first()
-    return json.loads(to_json(cables, Cable))
+    # cables = Cable.query.filter_by(length=length).first()
+
+    result = db.engine.execute(text("SELECT * FROM cables;").execution_options(autocommit=True))
+    return result;
+    # return json.loads(to_json(result, Cable))
 
 
 def to_json(inst, cls):

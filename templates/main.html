@@ -86,6 +86,8 @@
     </tr>
 </table>
 
+<table id="temp"></table>
+
 <script>
     function updateRightTable() {
         let url = "http://localhost:1234/filter?"
@@ -95,62 +97,26 @@
         url += "&application=" + document.getElementById('application').value
 
         fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                let HTML = "<table id='right_table' border=1 width=100%><tr><th>Serie</th><th>Model</th><th>Part Number</th><th>Material</th>";
-                for (let row of data) {
-                    HTML += "<tr>"
-                    HTML += "<th>" + row.length + "</th>"
-                    HTML += "<th>" + row.frequency + "</th>"
-                    HTML += "<th>" + row.length + "</th>"
-                    HTML += "<th>" + row.length + "</th>"
-                    HTML += "</tr>"
-                }
-                HTML += "</table>";
-                document.getElementById('right_table').innerHTML = HTML;
+            .then(response => {
+                console.log(response);
             });
+
+        // fetch(url)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         let HTML = "<table id='right_table' border=1 width=100%><tr><th>Serie</th><th>Model</th><th>Part Number</th><th>Material</th>";
+        //         for (let row of data) {
+        //             HTML += "<tr>"
+        //             HTML += "<th>" + row.length + "</th>"
+        //             HTML += "<th>" + row.frequency + "</th>"
+        //             HTML += "<th>" + row.length + "</th>"
+        //             HTML += "<th>" + row.length + "</th>"
+        //             HTML += "</tr>"
+        //         }
+        //         HTML += "</table>";
+        //         document.getElementById('right_table').innerHTML = HTML;
+        //     });
     }
-
-    //  let assemblies =[];
-
-    // function addAssembly (){
-    //   ev.preventDefault();  //dont reload the web
-    //  let assembly={
-    //  id: 123,
-    //   length:document.getElementById('length').value,
-    //  frequency:document.getElementById('frequency').value,
-    //   diameter:document.getElementById('diameter').value,
-    // application:document.getElementById('application').value
-    //  }
-    //  assemblies.push(assembly);
-    //   document.from[0].reset();
-    //  console.warn('added', {assemblies});
-    //   let pre =document.querySelector('#msg pre');
-    //   pre.textContent= '\n'+JSON.stringify(assemblies, '\t',2);
-    //   console.log("ok")
-    // }
-
-    //saving to localStorage
-
-    //to make sure the web uploaded
-    //document.addEventListener('DOMContentLoaded',()=>{
-    //document.getElementById('submitbtn').addEventListener('click',addAssembly);
-    //})
-
-    // $('#submitbtn').click(function(e){
-    // e.preventDefault();
-    //        let assembly={
-    //        id: 123,
-    //       length:document.getElementById('length').value,
-    //       frequency:document.getElementById('frequency').value,
-    //        diameter:document.getElementById('diameter').value,
-    //        application:document.getElementById('application').value
-    //        }
-    //        localStorage.setItem("assembly",JSON.stringify(assembly));
-    //
-    //
-    // });
-
 </script>
 
 </body>
